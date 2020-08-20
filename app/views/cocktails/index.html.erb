@@ -1,0 +1,29 @@
+<div>Navbar</div>
+
+<div>
+  Body
+  <div>
+    Banner
+    <div><h1>Title of app</h1></div>
+    <div>
+      <%= link_to cocktails_new_path do %>
+      <i class="fas fa-ad fa-5x"></i>
+      <% end %>
+    </div>
+  </div>
+  <div>
+    Container for cards
+    <% @cocktails.each do |cocktail| %>
+       <div>
+        Cards for cocktails
+        <%= cocktail.name %>
+        <%= cocktail.ingredients %>
+        <div>
+          <%= link_to cocktail_path(cocktail) do %>
+            <i class="fas fa-binoculars"></i>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
