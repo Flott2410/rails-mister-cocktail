@@ -22,3 +22,25 @@ ingredients_array.each do |ingred|
 end
 
 puts "Successfully created ingredients"
+
+
+puts "Create cocktails"
+Cocktails.all.destroy
+
+base_id = 11000
+30.times do
+  url = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=#{base_id}"
+  cocktail_serialized = open(url).read
+  cocktail_s = JSON.parse(ingredients_serialized)
+  cocktail_array = cocktail_s[:drinks]
+  cocktail_array.each do |pair|
+    cocktail = Cocktail.new!(
+      name: pair[:strDrink]
+    )
+
+  dose = Dose.new(description: , ingredient: )
+  @dose.cocktail = @cocktail
+
+  cocktail.save
+  base_id += 1
+end

@@ -6,12 +6,15 @@ Rails.application.routes.draw do
   get "cocktails", to: 'cocktails#index'
   get "cocktails/:id", to: 'cocktails#show', as: :cocktail
 
-  get "cocktails/42/doses/new", to: 'doses#new'
-  post "cocktails/42/doses", to: 'doses#create'
+  # get "cocktails/:cocktail_id/doses/new", to: 'doses#new' # /doses/new???
+  post "cocktails/:cocktail_id/doses", to: 'doses#create', as: :cocktail_doses
 
-  delete "doses/25", to: 'doses#destroy'
+  delete "doses/:id", to: 'doses#destroy', as: :doses_delete
 
 
+# resources :cocktails do
+#   resources :doses, only: :new
+# end
 end
 
 

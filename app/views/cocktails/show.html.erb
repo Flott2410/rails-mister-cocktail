@@ -10,8 +10,23 @@
       <div class='container wrapper'>
         <div><h3>Cocktails</h3></div>
         <div><h3>Ingredients</h3></div>
-        <div>Link_to delete ingredients</div>
-        <div>Form for new ingredient</div>
+        <div>Link_to delete ingredients
+          <% @cocktail.doses.each do |dose| %>
+            <%= link_to doses_delete_path(dose),
+              method: :delete,
+              data: { confirm: "Are you sure?" } do %>
+                <i class="far fa-trash-alt fa-xs"></i>
+            <% end %>
+          <% end %>
+        </div>
+        <div>
+          <%= simple_form_for [@cocktail, @dose] do |f| %>
+            <%= f.input :description %>
+            <%= f.association :ingredient %>
+            <p> </p>
+            <%= f.submit "Submit review", class: "btn btn-primary" %>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
