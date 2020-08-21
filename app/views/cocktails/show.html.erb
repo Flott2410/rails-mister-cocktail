@@ -5,7 +5,9 @@
       <div class='wrapper-show'>
         <div class='wrapper-edit-link'>link_to edit</div>
         <div class='wrapper-title'>Title</div>
-        <div class='wrapper-image'>Picture</div>
+        <div class='wrapper-image'>
+          <%= cl_image_tag @cocktail.photo.key, height: 300, width: 400, crop: :fill %>
+        </div>
       </div>
       <div class='container wrapper'>
         <div><h3>Cocktails</h3></div>

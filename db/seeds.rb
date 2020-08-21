@@ -33,28 +33,33 @@ base_id = 11000
   cocktail_serialized = open(url).read
   cocktail_s = JSON.parse(ingredients_serialized)
   cocktail_array = cocktail_s["drinks"]
-  cocktail_array.each do |pair|
-    cocktail = Cocktail.new(
-      name: pair["strDrink"],
-      image_url: pair["strDrinkThumb"]
-    )
-    # get doses pairs: ingredients + dose_description
-    dose_pairs = []
-    x = 1
-    14.times do
-      dose_pairs << [pair["strMeasure#{x}"], pair["strIngredient#{x}"]]
-      x += 1
-    end
-    # iterate over dose array to create doses that should belong to a cocktail - filter out 0 values
-    # dose_pairs is array of arrays
-    dose_pairs.each do |item|
-      if item[0] != nil
-        dose = Dose.create!(description: item[0], ingredient: Ingredient.new(name: item[1]))
-        dose.cocktail_id = cocktail.id
-        cocktail.save
-      end
+  cocktail_hash = cocktail_array.first
+
+  cocktail = Cocktail.new(
+    name: cocktail_hash["strDrink"]
+    # image_url: cocktail_hash["strDrinkThumb"]
+  )
+
+  # byebug
+  file = URI.open("#{cocktail_hash["strDrinkThumb"]}")
+  cocktail.photo.attach(io: file, filename: "#{base_id}.png", content_type: 'image/png')
+  # get doses pairs: ingredients + dose_description
+  dose_pairs = []
+  x = 1
+  14.times do
+    dose_pairs << [cocktail_hash["strMeasure#{x}"], cocktail_hash["strIngredient#{x}"]]
+    x += 1
+  end
+  # iterate over dose array to create doses that should belong to a cocktail - filter out 0 values
+  # dose_pairs is array of arrays
+  dose_pairs.each do |item|
+    if item[0] != nil
+      dose = Dose.create!(description: item[0], ingredient: Ingredient.new(name: item[1]))
+      dose.cocktail_id = cocktail.id
+      cocktail.save!
     end
   end
+end
   base_id += 1
 end
 
