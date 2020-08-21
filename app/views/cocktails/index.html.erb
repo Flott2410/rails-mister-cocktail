@@ -1,34 +1,27 @@
-<div>Navbar</div>
 
-<div>
-  Body
-  <div>
-    Banner
-    <div><h1>Title of app</h1></div>
-    <div>
-      <%= link_to cocktails_new_path do %>
-      <i class="fas fa-ad fa-5x"></i>
+<div class='background-index container'>
+  <div id="title-wrapper-1">
+    <div><h1>Share your favorite cocktail recipeswith the world</h1></div>
+    <div id="ad-logo"> <%= link_to cocktails_new_path do %>
+      <i class="fas fa-ad fa-sm"></i>
       <% end %>
     </div>
   </div>
-  <div>
-    Container for cards
+</div>
+<div class="container">
+  <div class="row">
     <% @cocktails.each do |cocktail| %>
-       <div>
-        Cards for cocktails
+    <div class="col-12 col-md-6 ">
+      <% background_url = cl_image_path cocktail.photo.key, height: 300, width: 400, crop: :fill %>
+      <div class="card-category" style="background: url(<%= background_url %>);">
         <%= cocktail.name %>
-        <%= cocktail.ingredients %>
-        <div>
+        <div id="show-icon">
           <%= link_to cocktail_path(cocktail) do %>
             <i class="fas fa-binoculars"></i>
           <% end %>
         </div>
       </div>
+    </div>
     <% end %>
   </div>
 </div>
-
-<%= cl_image_tag("vroahftitpngo9bwztwo",
-      width: 400, height: 300, crop: :fill) %>
-<%= cl_image_tag("lfznvqkqusiunanji2qz",
-      width: 400, height: 300, crop: :fill) %>

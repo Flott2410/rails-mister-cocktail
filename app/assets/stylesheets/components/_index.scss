@@ -2,3 +2,29 @@
 @import "alert";
 @import "avatar";
 @import "navbar";
+@import "card";
+
+.background-index {
+  background: rgba(225,225,225,0.3);
+}
+
+.fa-ad {
+  color: grey;
+}
+
+.title-wrapper-1 {
+  position: relative;
+}
+
+.ad-logo {
+  position: absolute;
+  right: 30px;
+}
+
+h1 {
+  padding: 80px;
+}
+
+#show-icon {
+  margin-left: 50px;
+}

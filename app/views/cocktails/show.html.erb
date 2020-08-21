@@ -1,17 +1,15 @@
-<div>Navbar</div>
 <div class='container'>
   <div class='row'>
     <div class='column'>
       <div class='wrapper-show'>
-        <div class='wrapper-edit-link'>link_to edit</div>
-        <div class='wrapper-title'>Title</div>
+        <div class='wrapper-title'><%= @cocktail.name %></div>
         <div class='wrapper-image'>
           <%= cl_image_tag @cocktail.photo.key, height: 300, width: 400, crop: :fill %>
         </div>
       </div>
       <div class='container wrapper'>
         <div><h3>Cocktails</h3></div>
-        <div><h3>Ingredients</h3></div>
+        <div><h3><%= @cocktail.ingredients %></h3></div>
         <div>Link_to delete ingredients
           <% @cocktail.doses.each do |dose| %>
             <%= link_to doses_delete_path(dose),
