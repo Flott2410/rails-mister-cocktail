@@ -11,7 +11,7 @@ require 'json'
 
 
 puts "Create ingredients"
-Ingredient.all.destroy
+Ingredient.destroy_all
 
 url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list'
 ingredients_serialized = open(url).read
@@ -25,22 +25,37 @@ puts "Successfully created ingredients"
 
 
 puts "Create cocktails"
-Cocktails.all.destroy
+Cocktail.destroy_all
 
 base_id = 11000
-30.times do
+3.times do
   url = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=#{base_id}"
   cocktail_serialized = open(url).read
   cocktail_s = JSON.parse(ingredients_serialized)
-  cocktail_array = cocktail_s[:drinks]
+  cocktail_array = cocktail_s["drinks"]
   cocktail_array.each do |pair|
-    cocktail = Cocktail.new!(
-      name: pair[:strDrink]
+    cocktail = Cocktail.new(
+      name: pair["strDrink"],
+      image_url: pair["strDrinkThumb"]
     )
-
-  dose = Dose.new(description: , ingredient: )
-  @dose.cocktail = @cocktail
-
-  cocktail.save
+    # get doses pairs: ingredients + dose_description
+    dose_pairs = []
+    x = 1
+    14.times do
+      dose_pairs << [pair["strMeasure#{x}"], pair["strIngredient#{x}"]]
+      x += 1
+    end
+    # iterate over dose array to create doses that should belong to a cocktail - filter out 0 values
+    # dose_pairs is array of arrays
+    dose_pairs.each do |item|
+      if item[0] != nil
+        dose = Dose.create!(description: item[0], ingredient: Ingredient.new(name: item[1]))
+        dose.cocktail_id = cocktail.id
+        cocktail.save
+      end
+    end
+  end
   base_id += 1
 end
+
+puts "30 Cocktails created!!!!"
