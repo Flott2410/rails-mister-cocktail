@@ -59,7 +59,6 @@ base_id = 11000
       cocktail.save!
     end
   end
-end
   base_id += 1
 end
 
