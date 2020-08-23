@@ -29,7 +29,7 @@ Ingredient.destroy_all
 Dose.destroy_all
 
 base_id = 11000
-3.times do
+25.times do
   url = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=#{base_id}"
   cocktail_serialized = open(url).read
   cocktail_s = JSON.parse(cocktail_serialized)
